@@ -1,34 +1,33 @@
+const userHeight = document.querySelector('#height');
+const userWeight = document.querySelector('#weight');
 const form = document.querySelector('form');
-form.addEventListener('submit', function (e) {
-  //prevent form
-  e.preventDefault();
-  const height = parseFloat(document.querySelector('#height').value.trim());
-  const weight = parseFloat(document.querySelector('#weight').value.trim());
-  const result = document.querySelector('.result');
+const result = document.querySelector('.result');
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
 
-  // Empty input check
+  const height = parseFloat(userHeight.value.trim());
+  const weight = parseFloat(userWeight.value.trim());
+
   if (!height || !weight) {
-    result.textContent = ' height and weight are required';
+    result.innerHTML = `Height and Weight required`;
     return;
   }
-  //  Check if input is a number or Check if number is positive
-  if (isNaN(height) || isNaN(weight) ||height <= 0 || weight <= 0) {
-    result.textContent = 'Please enter valid numbers.';
+  if (isNaN(height) || isNaN(weight) || height <= 0 || weight <= 0) {
+    result.innerHTML = `Please enter valid data`;
     return;
   }
 
-  if (height < 50 || height > 300 ||weight < 10 || weight > 500 ) {
-    result.textContent = 'Enter realistic height (50–300 cm) and weight (10–500 kg)';
+  if (height < 50 || height > 300 || weight < 10 || weight > 500) {
+    result.textContent =
+      'Enter realistic Height (50–300 cm) and Weight (10–500 kg)';
     return;
   }
-  const bmiCalculate = (weight / (height / 100) ** 2).toFixed(2);
-  // show the result
+  const bmiCalculate = parseFloat((weight / (height / 100) ** 2).toFixed(2));
   if (bmiCalculate < 18.6) {
-    result.innerHTML = `<span>${bmiCalculate} Under weight</span>`;
+    result.innerHTML = `<span>${bmiCalculate} UnderWeight</span>`;
   } else if (bmiCalculate >= 18.6 && bmiCalculate <= 24.9) {
-    result.innerHTML = `<span>${bmiCalculate} Normal</span>`;
+    result.innerHTML = `<span>${bmiCalculate} Normal Weight</span>`;
   } else {
-    result.innerHTML = `<span>${bmiCalculate} Over Weight</span>`;
+    result.innerHTML = `<span>${bmiCalculate} OverWeight</span>`;
   }
 });
-
